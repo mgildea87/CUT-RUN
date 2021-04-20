@@ -46,3 +46,11 @@ SEACR:
   Cores: 20 #-c
   Time: 60 # -t
   Error: logs/slurm_reports/slurm-%j.out # -e
+
+fragment_size:
+  Job_name: fragment_size # -J
+  Mem: 60000 # --mem
+  Partition: cpu_short # -p
+  Cores: 1 #-c
+  Time: 60 # -t
+  Error: logs/slurm_reports/slurm-%j.out # -e

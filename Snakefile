@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-for directory in ['fastqc', 'trim', 'logs', 'logs/slurm_reports', 'logs/trim_reports', 'alignment','alignment/bed', 'logs/alignment_reports', 'peaks']:
+for directory in ['fastqc', 'trim', 'logs', 'logs/slurm_reports', 'logs/trim_reports', 'alignment','alignment/bed', 'alignment/frag_len', 'logs/alignment_reports', 'peaks']:
 	if not os.path.isdir(directory):
 		os.mkdir(directory)
 
@@ -36,7 +36,8 @@ sample_ids_wo_IgG.remove(IgG_control)
 rule all:
 	input:
 		expand('peaks/{sample}.stringent.bed', sample = sample_ids_wo_IgG),
-		expand('fastqc/{sample}{read}_fastqc.html', sample = sample_ids, read = read)
+		expand('fastqc/{sample}{read}_fastqc.html', sample = sample_ids, read = read),
+		expand('alignment/frag_len/{sample}.txt', sample = sample_ids)
 
 rule fastqc:
 	input: 
@@ -121,3 +122,13 @@ rule SEACR:
 		'non stringent'
 	shell:
 		'bash SEACR_1.3.sh {input.exp} {input.con} {params} peaks/{wildcards.sample}'
+
+rule fragment_size:
+	input:
+		'alignment/{sample}.bam'
+	output:
+		'alignment/frag_len/{sample}.txt'
+	shell:
+		"""
+		samtools view {input} | awk -F'\t' 'function abs(x){{return ((x < 0.0) ? -x : x)}} {{print abs($9)}}' | sort | uniq -c | awk -v OFS="\t" '{{print $2, $1/2}}' > {output}
+		"""
