@@ -36,6 +36,7 @@ sample_ids_wo_IgG.remove(IgG_control)
 rule all:
 	input:
 		'FRP.txt',
+		expand('peaks/{sample}.stringent.bed', sample = sample_ids_wo_IgG),
 		expand('fastqc/{sample}{read}_fastqc.html', sample = sample_ids, read = read),
 		expand('alignment/frag_len/{sample}.txt', sample = sample_ids)
 
