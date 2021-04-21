@@ -30,7 +30,7 @@ IgG_control = IgG_control.index('yes')
 IgG_control = sample_ids[IgG_control]
 
 #Make a list of sample ids without the IgG control for peak calling
-sample_ids_wo_IgG = sample_ids
+sample_ids_wo_IgG = sample_ids.copy()
 sample_ids_wo_IgG.remove(IgG_control)
 
 rule all:
