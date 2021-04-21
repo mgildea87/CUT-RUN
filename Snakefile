@@ -35,7 +35,7 @@ sample_ids_wo_IgG.remove(IgG_control)
 
 rule all:
 	input:
-		expand('peaks/{sample}.stringent.bed', sample = sample_ids_wo_IgG),
+		'FRP.txt',
 		expand('fastqc/{sample}{read}_fastqc.html', sample = sample_ids, read = read),
 		expand('alignment/frag_len/{sample}.txt', sample = sample_ids)
 
@@ -132,3 +132,11 @@ rule fragment_size:
 		"""
 		samtools view {input} | awk -F'\t' 'function abs(x){{return ((x < 0.0) ? -x : x)}} {{print abs($9)}}' | sort | uniq -c | awk -v OFS="\t" '{{print $2, $1/2}}' > {output}
 		"""
+
+rule FRP:
+	input:
+		expand('peaks/{sample}.stringent.bed', sample = sample_ids_wo_IgG)
+	output:
+		'FRP.txt'
+	script:
+		'FRP.py'
