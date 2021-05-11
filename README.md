@@ -34,7 +34,7 @@ This script:
 This bash script:
 
 		1. loads the miniconda3/4.6.14 module
-		2. Loads the conda environment (/gpfs/data/fisherlab/conda_envs/RNAseq). You can clone the conda environment using the RNAseq_PE.yml file and modify this bash script to load the env.
+		2. Loads the conda environment (/gpfs/data/fisherlab/conda_envs/CUT-RUN). You can clone the conda environment using the CUT-RUN.yml file and modify this bash script to load the env.
 		3. Executes snakemake
 ## CUT-RUN.yml
 This file contains the environment info used by this pipeline.
@@ -51,5 +51,5 @@ When starting a new project:
 		4. Update the samples_info.tab file with fastq.gz file names and desired sample, condition, replicate names, and IgG control status
 		5. Update config.yaml with path to genome and feature file (if needed. The default right now is mm10)
 		6. Update cluster_config.yml with job desired specifications for each Snakemake rule if desired
-		7. Perform a dry run of snakemake with 'snakemake -n -r' to check for errors and this will tell you the number of jobs required. You will need to load the miniconda3/4.6.14 module and activate the RNAseq environment first. Dont forget to deactivate the environment and miniconda module before running snakemake_init.sh
+		7. Perform a dry run of snakemake with 'snakemake -n -r' to check for errors and this will tell you the number of jobs required. You will need to load the miniconda3/4.6.14 module and activate the CUT-RUN environment first. Dont forget to deactivate the environment and miniconda module before running snakemake_init.sh
 		8. Run snakemake_init.sh
