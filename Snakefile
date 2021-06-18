@@ -1,16 +1,16 @@
 import pandas as pd
 import os
 
-for directory in ['fastqc', 'trim', 'logs', 'logs/slurm_reports', 'logs/trim_reports', 'alignment','alignment/bed', 'alignment/frag_len', 'logs/alignment_reports', 'peaks']:
+for directory in ['fastqc', 'fastqc_post_trim', 'trim', 'logs', 'logs/slurm_reports', 'logs/trim_reports', 'alignment','alignment/bed', 'alignment/frag_len', 'logs/alignment_reports', 'peaks']:
 	if not os.path.isdir(directory):
 		os.mkdir(directory)
 
 configfile: "config.yaml"
 sample_file = config["sample_file"]
-GTF = config["GTF"]
 sample = pd.read_table(sample_file)['Sample']
 replicate = pd.read_table(sample_file)['Replicate']
 condition = pd.read_table(sample_file)['Condition']
+Antibody = pd.read_table(sample_file)['Antibody']
 File_R1 = pd.read_table(sample_file)['File_Name_R1']
 File_R2 = pd.read_table(sample_file)['File_Name_R2']
 File_names = File_R1.append(File_R2)
@@ -20,25 +20,21 @@ spike_genome = config["spike_genome"]
 sample_ids = []
 for i in range(len(sample)):
 	sample_ids.append('%s_%s_%s' % (sample[i], condition[i], replicate[i]))
+sample_ids = pd.unique(sample_ids).tolist()
+
+sample_ids_file = []
+for i in range(len(sample)):
+	sample_ids_file.append('%s_%s_%s_%s' % (sample[i], condition[i], replicate[i], Antibody[i]))
 
 read = ['_R1', '_R2']
 
-# Identify IgG control sample for peak calling. (Will only find the first instance of yes. If IgG replicates exist, use the enumerate function to find all indexes)
-IgG_control = pd.read_table(sample_file)['IgG_control']
-IgG_control = IgG_control.to_list()
-IgG_control = IgG_control.index('yes')
-IgG_control = sample_ids[IgG_control]
-
-#Make a list of sample ids without the IgG control for peak calling
-sample_ids_wo_IgG = sample_ids.copy()
-sample_ids_wo_IgG.remove(IgG_control)
-
 rule all:
 	input:
+		expand('fastqc/{sample_file}{read}_fastqc.html', sample_file = sample_ids_file, read = read),
+		expand('fastqc_post_trim/{sample_file}_trimmed{read}_fastqc.html', sample_file = sample_ids_file, read = read),
+		expand('peaks/{sample}.stringent.bed', sample = sample_ids),
 		'FRP.txt',
-		expand('peaks/{sample}.stringent.bed', sample = sample_ids_wo_IgG),
-		expand('fastqc/{sample}{read}_fastqc.html', sample = sample_ids, read = read),
-		expand('alignment/frag_len/{sample}.txt', sample = sample_ids)
+		expand('alignment/frag_len/{sample}.txt', sample = sample_ids_file)
 
 rule fastqc:
 	input: 
@@ -47,6 +43,16 @@ rule fastqc:
 		"fastqc/{sample}{read}_fastqc.html",
 	params:
 		'fastqc/'
+	shell: 
+		'fastqc {input.fastq} -o {params}'
+
+rule fastqc_post_trim:
+	input: 
+		fastq = "trim/{sample}{read}.fastq.gz"
+	output:  
+		"fastqc_post_trim/{sample}{read}_fastqc.html",
+	params:
+		'fastqc_post_trim/'
 	shell: 
 		'fastqc {input.fastq} -o {params}'
 
@@ -115,8 +121,8 @@ rule spike_in_norm:
 
 rule SEACR:
 	input:
-		exp='alignment/bed/{sample}.bedgraph',
-		con='alignment/bed/%s.bedgraph' % (IgG_control)
+		exp='alignment/bed/{sample}_Antibody.bedgraph',
+		con='alignment/bed/{sample}_Control.bedgraph'
 	output:
 		'peaks/{sample}.stringent.bed'
 	params:
@@ -136,7 +142,7 @@ rule fragment_size:
 
 rule FRP:
 	input:
-		expand('peaks/{sample}.stringent.bed', sample = sample_ids_wo_IgG)
+		expand('peaks/{sample}.stringent.bed', sample = sample_ids)
 	output:
 		'FRP.txt'
 	script:

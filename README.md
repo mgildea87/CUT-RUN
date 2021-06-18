@@ -1,5 +1,5 @@
 # CUT-RUN
-This pipeline was written for execution on the NYU big purple server. This readme describes how to execute the snake make workflow for paired-end CUT&RUN data pre-processing (fastq -> peak calling), Utilizing bowtie2 for alignment and SEACR for peak calling.
+This pipeline was written for execution on the NYU big purple server. This readme describes how to execute the snake make workflow for paired-end CUT&RUN data pre-processing (fastq -> peak calling), Utilizing bowtie2 for alignment and SEACR for peak calling. This pipeline assumes there is a control for each antibody sample (input or IgG). If there isn't, a common control can be duplicated in the samples_info.tab file for each antibody sample.
 
 # Description of files required for snakemake:
 ## Snakefile
@@ -7,20 +7,21 @@ This file contains the work flow
 ## samples_info.tab
 This file contains a tab deliminated table with:
 
-		1. The names of R1 and R2 of each fastq file as received from the sequencing center. 
+		1. The names of R1 and R2 of each fastq file as received from the sequencing center. If sample was not split over multiple lanes, remove the lane number (L001) from the fastq file name. cat_rename.py removes this when it concatenates .fastq files split over multiple lanes.
 		2. Simple sample names
 		3. Condition (e.g. diabetic vs non_diabetic)
 		4. Replicate #
-		5. Sample name is the concatenated final sample_id 
-		6. IgG_control specifies which samples are IgG input controls (yes = control, no = not control)
-		7. Additional info can be added to this table for downstream use in analysis
+		5. The antibody column specifies if the sample is the ChIP antibody or a control (input or IgG etc...)
+		6. Sample name is the concatenated final sample_id. This is a concatenation of the sample name, condition, replicate, and antibody columns  
+		7. Additional metadata can be added to this table for downstream analysis
+		8. Sample name, condition, and replicate should be identical for each pair of antibody and control fastq files. The antibody column specifies which of the pair is antibody and which is control.
 ## config.yaml
 This file contains general configuaration info.
 
 		1. Where to locate the samples_info.tab file
 		2. Path to bowtie2 indexed genome
 		3. Path to bowtie2 indexed genome for the spike-in (E.coli)
-		3. Path to feature file (.GTF). This isnt utilized at this point
+
 ## cluster_config.yml
 Sbatch parameters for each rule in the Snakefile workflow
 ## cat_rename.py
