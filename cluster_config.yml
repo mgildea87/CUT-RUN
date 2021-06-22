@@ -39,6 +39,14 @@ align_spike:
   Time: 240 # -t
   Error: logs/slurm_reports/slurm-%j.out # -e
 
+sort:
+  Job_name: sort # -J
+  Mem: 60000 # --mem
+  Partition: cpu_short # -p
+  Cores: 20 #-c
+  Time: 240 # -t
+  Error: logs/slurm_reports/slurm-%j.out # -e
+
 spike_in_norm:
   Job_name: spike_norm # -J
   Mem: 60000 # --mem
