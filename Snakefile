@@ -35,6 +35,7 @@ rule all:
 		expand('peaks/{sample}.stringent.bed', sample = sample_ids),
 		'FRP.txt',
 		expand('alignment/frag_len/{sample}.txt', sample = sample_ids_file),
+		expand('alignment/{sample}_sorted.bam.bai', sample = sample_ids_file),
 		expand('alignment/{sample}_sorted.bam', sample = sample_ids_file)
 
 rule fastqc:
@@ -109,7 +110,16 @@ rule sort:
 		'alignment/{sample}_sorted.bam'	
 	threads: 40
 	shell:
-		'samtools sort -@ {threads} {input} > {output}'		
+		'samtools sort -@ {threads} {input} > {output}'
+
+rule index:
+	input:
+		'alignment/{sample}_sorted.bam'
+	output:
+		'alignment/{sample}_sorted.bam.bai'	
+	threads: 20
+	shell:
+		'samtools index -@ {threads} {input} > {output}'
 
 rule spike_in_norm:
 	input:
