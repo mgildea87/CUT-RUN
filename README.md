@@ -47,8 +47,7 @@ This file computes the fraction of reads in peaks (FRP) and outputs a table with
 When starting a new project:
 
 		1. Clone the git repo using 'git clone https://github.com/mgildea87/CUT-RUN.git'
-		2. Make a fastq/ directory in the new CUT-RUN_git directory within your project directory
-		3. Copy the fastq.gz files into fastq/ 
+		2. Within snakemake_init.sh specifiy the location of the sequencing files from the core. cat_rename.py will concatenate, rename, and copy these to a local directory 'fastq/' 
 		4. Update the samples_info.tab file with fastq.gz file names and desired sample, condition, replicate names, and IgG control status
 		5. Update config.yaml with path to genome and feature file (if needed. The default right now is mm10)
 		6. Update cluster_config.yml with job desired specifications for each Snakemake rule if desired
