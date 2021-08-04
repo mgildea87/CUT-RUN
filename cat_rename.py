@@ -5,10 +5,11 @@ import pandas as pd
 #Run script inside fastq directory
 def concat():
 	cur_dir = 'fastq/'
-	files = os.listdir(cur_dir)
+	fast_dir = sys.argv[1]
+	files = os.listdir(fast_dir)
 	samples = {}
 	for file in files:
-		file = 'fastq/%s' % (file)
+		file = '%s%s' % (fast_dir, file)
 		if 'L00' in file:
 			if os.path.isfile(file) and file.endswith('fastq.gz'):
 					a = file.split('L00')
@@ -21,11 +22,8 @@ def concat():
 		com = samples[sample]
 		com.sort()
 		com.insert(0, 'cat')
-		print('Concatenating: %s' % (com[1:]))
-		with open('%s_001.fastq.gz' % (sample), 'w') as R1:
+		with open('%s%s_001.fastq.gz' % (cur_dir, sample.split('/')[-1]), 'w') as R1:			
 			subprocess.run(com, stdout=R1)
-			com[0] = 'rm'
-			subprocess.run(com)
 
 #rename samples based on sample ids in samples_info.tab
 def rename():
