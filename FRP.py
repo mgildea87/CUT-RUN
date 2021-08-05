@@ -18,7 +18,7 @@ for i in range(len(sample)):
 total_fragments = []
 peak_fragments = []
 def FRP(sample):
-	peak_id = sample.split('_')[0:4]
+	peak_id = sample.split('_')[0:-1]
 	peak_id = "_".join(peak_id)
 	print(sample)
 	cmd_1 = ['bedtools', 'bamtobed', '-bedpe', '-i', 'alignment/%s.bam' % (sample)] 
