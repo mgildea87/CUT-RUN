@@ -46,10 +46,12 @@ This file computes the fraction of reads in peaks (FRP) and outputs a table with
 ## Usage
 When starting a new project:
 
-		1. Clone the git repo using 'git clone https://github.com/mgildea87/CUT-RUN.git'
-		2. Within snakemake_init.sh specifiy the location of the sequencing files from the core. cat_rename.py will concatenate, rename, and copy these to a local directory 'fastq/' 
+		1. Clone the git repo using 'git clone --recurse-submodules https://github.com/mgildea87/CUT-RUN.git'
+		2. Run 'git submodule update --remote' to pull any changes that have been made to the cat_rename_init submodule.
+		3. Within snakemake_init.sh specifiy the location of the sequencing files from the core. cat_rename.py will concatenate, rename, and copy these to a local directory 'fastq/' 
 		4. Update the samples_info.tab file with fastq.gz file names and desired sample, condition, replicate names, and IgG control status
 		5. Update config.yaml with path to genome and feature file (if needed. The default right now is mm10)
-		6. Update cluster_config.yml with job desired specifications for each Snakemake rule if desired
+		6. Update cluster_config.yml with job desired specifications for each Snakemake rule, if desired
+		7. Add the directory containing the fastq files (/gpfs/data/sequence/results/...) from the core to the cat_rename_init/snakemake_init.sh file.
 		7. Perform a dry run of snakemake with 'snakemake -n -r' to check for errors and this will tell you the number of jobs required. You will need to load the miniconda3/4.6.14 module and activate the CUT-RUN environment first. Dont forget to deactivate the environment and miniconda module before running snakemake_init.sh
-		8. Run snakemake_init.sh
+		8. Run 'bash cat_rename_init/snakemake_init.sh'
