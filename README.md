@@ -34,7 +34,7 @@ This script:
 ## snakemake_init.sh
 This bash script:
 
-		1. loads the miniconda3/4.6.14 module
+		1. loads the miniconda3/cpu/4.9.2 module
 		2. Loads the conda environment (/gpfs/data/fisherlab/conda_envs/CUT-RUN). You can clone the conda environment using the CUT-RUN.yml file and modify this bash script to load the env.
 		3. Executes snakemake
 ## CUT-RUN.yml
@@ -54,4 +54,4 @@ When starting a new project:
 		6. Update cluster_config.yml with job desired specifications for each Snakemake rule, if desired
 		7. Add the directory containing the fastq files (/gpfs/data/sequence/results/...) from the core to the cat_rename_init/snakemake_init.sh file.
 		7. Perform a dry run of snakemake with 'snakemake -n -r' to check for errors and this will tell you the number of jobs required. You will need to load the miniconda3/4.6.14 module and activate the CUT-RUN environment first. Dont forget to deactivate the environment and miniconda module before running snakemake_init.sh
-		8. Run 'bash cat_rename_init/snakemake_init.sh'
+		8. Run 'bash cat_rename_init/snakemake_init.sh' to execute workflow.
