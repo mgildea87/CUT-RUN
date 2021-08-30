@@ -53,5 +53,5 @@ When starting a new project:
 		5. Update config.yaml with path to genome and feature file (if needed. The default right now is mm10)
 		6. Update cluster_config.yml with job desired specifications for each Snakemake rule, if desired
 		7. Add the directory containing the fastq files (/gpfs/data/sequence/results/...) from the core to the cat_rename_init/snakemake_init.sh file.
-		7. Perform a dry run of snakemake with 'snakemake -n -r' to check for errors and this will tell you the number of jobs required. You will need to load the miniconda3/4.6.14 module and activate the CUT-RUN environment first. Dont forget to deactivate the environment and miniconda module before running snakemake_init.sh
-		8. Run 'bash cat_rename_init/snakemake_init.sh' to execute workflow.
+		8. Perform a dry run of snakemake with 'snakemake -n -r' to check for errors and this will tell you the number of jobs required. You will need to load the miniconda3/cpu/4.9.2 module and activate the CUT-RUN environment first. Dont forget to deactivate the environment and miniconda module before running snakemake_init.sh. This step is not necessary.
+		9. Run 'bash cat_rename_init/snakemake_init.sh' to execute workflow.
