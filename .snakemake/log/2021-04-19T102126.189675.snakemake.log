@@ -1,3 +1,0 @@
-TypeError in line 29 of /gpfs/home/gildem01/workflows/CUT-RUN/Snakefile:
-'RangeIndex' object is not callable
-  File "/gpfs/home/gildem01/workflows/CUT-RUN/Snakefile", line 29, in <module>
