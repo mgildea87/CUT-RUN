@@ -1,0 +1,34 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 6
+Job counts:
+	count	jobs
+	1	all
+	1	trim
+	2
+Select jobs to execute...
+
+[Mon Apr 12 16:26:13 2021]
+rule trim:
+    input: fastq/Sample_1_ExpControl_1_R1.fastq.gz, fastq/Sample_1_ExpControl_1_R2.fastq.gz
+    output: trim/Sample_1_ExpControl_1_trimmed_R1.fastq.gz, trim/Sample_1_ExpControl_1_trimmed_R2.fastq.gz, logs/trim_reports/Sample_1_ExpControl_1.html, logs/trim_reports/Sample_1_ExpControl_1.json
+    log: logs/trim_reports/Sample_1_ExpControl_1.log
+    jobid: 1
+    wildcards: sample=Sample_1_ExpControl_1
+    threads: 4
+
+Submitted job 1 with external jobid 'Submitted batch job 12999626'.
+[Mon Apr 12 16:29:02 2021]
+Finished job 1.
+1 of 2 steps (50%) done
+Select jobs to execute...
+
+[Mon Apr 12 16:29:03 2021]
+localrule all:
+    input: trim/Sample_1_ExpControl_1_trimmed_R1.fastq.gz, trim/Sample_1_ExpControl_1_trimmed_R2.fastq.gz, fastqc/Sample_1_ExpControl_1_R1_fastqc.html, fastqc/Sample_1_ExpControl_1_R2_fastqc.html
+    jobid: 0
+
+[Mon Apr 12 16:29:03 2021]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: /gpfs/home/gildem01/workflows/CUT-RUN/.snakemake/log/2021-04-12T162608.210582.snakemake.log

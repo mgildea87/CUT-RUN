@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingInputException in line 116 of /gpfs/home/gildem01/workflows/CUT-RUN/Snakefile:
+Missing input files for rule SEACR:
+bed/Sample_2_IgGControl_1.bedgraph

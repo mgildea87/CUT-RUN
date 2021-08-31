@@ -1,0 +1,32 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 6
+Job counts:
+	count	jobs
+	1	all
+	1	spike_in_norm
+	2
+Select jobs to execute...
+
+[Fri Apr 16 13:31:02 2021]
+rule spike_in_norm:
+    input: alignment/Sample_1_ExpControl_1.bam, alignment/Sample_1_ExpControl_1_ecoli.bam
+    output: alignment/bed/Sample_1_ExpControl_1.bed, alignment/bed/Sample_1_ExpControl_1.bedgraph
+    jobid: 1
+    wildcards: sample=Sample_1_ExpControl_1
+
+Submitted job 1 with external jobid 'Submitted batch job 13054932'.
+[Fri Apr 16 13:46:12 2021]
+Finished job 1.
+1 of 2 steps (50%) done
+Select jobs to execute...
+
+[Fri Apr 16 13:46:13 2021]
+localrule all:
+    input: alignment/bed/Sample_1_ExpControl_1.bed, alignment/bed/Sample_1_ExpControl_1.bedgraph, fastqc/Sample_1_ExpControl_1_R1_fastqc.html, fastqc/Sample_1_ExpControl_1_R2_fastqc.html
+    jobid: 0
+
+[Fri Apr 16 13:46:13 2021]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: /gpfs/home/gildem01/workflows/CUT-RUN/.snakemake/log/2021-04-16T133058.052991.snakemake.log

@@ -1,0 +1,5 @@
+Building DAG of jobs...
+MissingInputException in line 26 of /gpfs/home/gildem01/workflows/CUT-RUN/Snakefile:
+Missing input files for rule all:
+trim/Sample_1_ExpControl_1_trimmed__R1.fastq.gz
+trim/Sample_1_ExpControl_1_trimmed__R2.fastq.gz

@@ -1,0 +1,9 @@
+5/24/2021
+1. Add fastqc rule after trimming. This was done in "/gpfs/data/moorelab/Coen_CHROME/Apr2021_chip-seq_re-analysis/ChIP_h3k27Ac_fastq/
+ChIPseq"
+2. Add individual input/control samples as in ChIPseq pipeline
+3. Maybe incorporate MACS as an alternative peak caller
+4. Will need to make separate coordinate sorted .bam files and index them for ChIPQC/Diffbind R analysis. Maybe add this rule? Not sure if Diffbind requires this.
+
+5/25/2021
+1. After peak calling, remove black list/grey list reads from bam files and repeat peak calling.

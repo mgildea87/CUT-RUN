@@ -1,0 +1,31 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 6
+Job counts:
+	count	jobs
+	1	SEACR
+	1	all
+	2
+Select jobs to execute...
+
+[Mon Apr 19 16:36:59 2021]
+rule SEACR:
+    input: alignment/bed/Sample_1_ExpControl_1.bedgraph, alignment/bed/Sample_2_IgGControl_1.bedgraph
+    output: peaks/Sample_1_ExpControl_1.peaks
+    jobid: 1
+    wildcards: sample=Sample_1_ExpControl_1
+
+Submitted job 1 with external jobid 'Submitted batch job 13108002'.
+[Mon Apr 19 16:40:19 2021]
+Error in rule SEACR:
+    jobid: 1
+    output: peaks/Sample_1_ExpControl_1.peaks
+    shell:
+        bash SEACR_1.3.sh alignment/bed/Sample_1_ExpControl_1.bedgraph alignment/bed/Sample_2_IgGControl_1.bedgraph non stringent peaks/Sample_1_ExpControl_1.peaks
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13108002
+
+Error executing rule SEACR on cluster (jobid: 1, external: Submitted batch job 13108002, jobscript: /gpfs/home/gildem01/workflows/CUT-RUN/.snakemake/tmp.r9o1dssr/snakejob.SEACR.1.sh). For error details see the cluster log and the log files of the involved rule(s).
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /gpfs/home/gildem01/workflows/CUT-RUN/.snakemake/log/2021-04-19T163653.274387.snakemake.log

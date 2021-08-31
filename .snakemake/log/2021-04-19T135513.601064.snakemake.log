@@ -1,0 +1,30 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 6
+Job counts:
+	count	jobs
+	2	SEACR
+	1	all
+	3
+Select jobs to execute...
+
+[Mon Apr 19 13:55:17 2021]
+rule SEACR:
+    input: alignment/bed/Sample_2_IgGControl_1.bedgraph, alignment/bed/Sample_2_IgGControl_1.bedgraph
+    output: peaks/Sample_2_IgGControl_1.peaks
+    jobid: 10
+    wildcards: sample=Sample_2_IgGControl_1
+
+Submitted job 10 with external jobid 'Submitted batch job 13106531'.
+
+[Mon Apr 19 13:55:18 2021]
+rule SEACR:
+    input: alignment/bed/Sample_1_ExpControl_1.bedgraph, alignment/bed/Sample_2_IgGControl_1.bedgraph
+    output: peaks/Sample_1_ExpControl_1.peaks
+    jobid: 1
+    wildcards: sample=Sample_1_ExpControl_1
+
+Submitted job 1 with external jobid 'Submitted batch job 13106532'.
+Terminating processes on user request, this might take some time.
+Will exit after finishing currently running jobs.
+Cancelling snakemake on user request.

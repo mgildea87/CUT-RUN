@@ -1,0 +1,46 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 6
+Job counts:
+	count	jobs
+	1	align
+	1	align_spike
+	1	all
+	3
+Select jobs to execute...
+
+[Thu Apr 15 16:34:43 2021]
+rule align_spike:
+    input: trim/Sample_1_ExpControl_1_trimmed_R1.fastq.gz, trim/Sample_1_ExpControl_1_trimmed_R2.fastq.gz
+    output: alignment/Sample_1_ExpControl_1_ecoli.bam
+    log: logs/alignment_reports/Sample_1_ExpControl_1_ecoli.log
+    jobid: 3
+    wildcards: sample=Sample_1_ExpControl_1
+    threads: 20
+
+Submitted job 3 with external jobid 'Submitted batch job 13046446'.
+
+[Thu Apr 15 16:34:43 2021]
+rule align:
+    input: trim/Sample_1_ExpControl_1_trimmed_R1.fastq.gz, trim/Sample_1_ExpControl_1_trimmed_R2.fastq.gz
+    output: alignment/Sample_1_ExpControl_1.bam
+    log: logs/alignment_reports/Sample_1_ExpControl_1.log
+    jobid: 1
+    wildcards: sample=Sample_1_ExpControl_1
+    threads: 20
+
+Submitted job 1 with external jobid 'Submitted batch job 13046447'.
+[Thu Apr 15 16:37:43 2021]
+Error in rule align:
+    jobid: 1
+    output: alignment/Sample_1_ExpControl_1.bam
+    log: logs/alignment_reports/Sample_1_ExpControl_1.log (check log file(s) for error message)
+    cluster_jobid: Submitted batch job 13046447
+
+Error executing rule align on cluster (jobid: 1, external: Submitted batch job 13046447, jobscript: /gpfs/home/gildem01/workflows/CUT-RUN/.snakemake/tmp.71ivwow6/snakejob.align.1.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Thu Apr 15 16:38:23 2021]
+Finished job 3.
+1 of 3 steps (33%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /gpfs/home/gildem01/workflows/CUT-RUN/.snakemake/log/2021-04-15T163437.682366.snakemake.log

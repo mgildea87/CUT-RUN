@@ -1,0 +1,4 @@
+AttributeError in line 28 of /gpfs/home/gildem01/workflows/CUT-RUN/Snakefile:
+'Series' object has no attribute 'IgG_control'
+  File "/gpfs/home/gildem01/workflows/CUT-RUN/Snakefile", line 28, in <module>
+  File "/gpfs/data/fisherlab/conda_envs/CUT-RUN/lib/python3.9/site-packages/pandas/core/generic.py", line 5465, in __getattr__

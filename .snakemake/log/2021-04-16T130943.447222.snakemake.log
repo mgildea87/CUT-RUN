@@ -1,0 +1,21 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 6
+Job counts:
+	count	jobs
+	1	all
+	1	spike_in_norm
+	2
+Select jobs to execute...
+
+[Fri Apr 16 13:09:51 2021]
+rule spike_in_norm:
+    input: alignment/Sample_1_ExpControl_1.bam, alignment/Sample_1_ExpControl_1_ecoli.bam
+    output: alignment/bed/Sample_1_ExpControl_1.bed, alignment/bed/Sample_1_ExpControl_1.bedgraph
+    jobid: 1
+    wildcards: sample=Sample_1_ExpControl_1
+
+WorkflowError in line 89 of /gpfs/home/gildem01/workflows/CUT-RUN/Snakefile:
+'Wildcards' object has no attribute 'Job_name'
+  File "/gpfs/data/fisherlab/conda_envs/CUT-RUN/lib/python3.9/site-packages/snakemake/executors/__init__.py", line 136, in run_jobs
+  File "/gpfs/data/fisherlab/conda_envs/CUT-RUN/lib/python3.9/site-packages/snakemake/executors/__init__.py", line 979, in run
