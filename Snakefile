@@ -7,15 +7,18 @@ for directory in ['fastqc', 'fastqc_post_trim', 'trim', 'logs', 'logs/slurm_repo
 
 configfile: "config.yaml"
 sample_file = config["sample_file"]
-sample = pd.read_table(sample_file)['Sample']
-replicate = pd.read_table(sample_file)['Replicate']
-condition = pd.read_table(sample_file)['Condition']
-Antibody = pd.read_table(sample_file)['Antibody']
-File_R1 = pd.read_table(sample_file)['File_Name_R1']
-File_R2 = pd.read_table(sample_file)['File_Name_R2']
-File_names = File_R1.append(File_R2)
 genome = config["genome"]
 spike_genome = config["spike_genome"]
+chr_lens = config["chromosome_lengths"]
+
+table = pd.read_table(sample_file)
+sample = table['Sample']
+replicate = table['Replicate']
+condition = table['Condition']
+Antibody = table['Antibody']
+File_R1 = table['File_Name_R1']
+File_R2 = table['File_Name_R2']
+File_names = File_R1.append(File_R2)
 
 sample_ids = []
 for i in range(len(sample)):
@@ -136,8 +139,8 @@ rule spike_in_norm:
 		scale_fac=`echo "10000 / $depth" | bc -l`
 		echo $scale_fac
 		bedtools bamtobed -bedpe -i alignment/{wildcards.sample}.bam | cut -f 1,2,6 | sort -k1,1 -k2,2n -k3,3n > alignment/bed/{wildcards.sample}.bed
-		bedtools genomecov -bg -i alignment/bed/{wildcards.sample}.bed -scale $scale_fac -g /gpfs/data/fisherlab/genomes/mm10/STAR_75_2.7.7a/chrNameLength.txt > alignment/bed/{wildcards.sample}.bedgraph
 		"""
+		'bedtools genomecov -bg -i alignment/bed/{wildcards.sample}.bed -scale $scale_fac -g %s > alignment/bed/{wildcards.sample}.bedgraph' % (chr_lens)
 
 rule SEACR:
 	input:

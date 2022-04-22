@@ -1,3 +1,4 @@
 sample_file: "samples_info.tab"
 genome: "/gpfs/data/fisherlab/genomes/mm10/bowtie2/mm10_index"
 spike_genome: "/gpfs/data/fisherlab/genomes/ec_K12_MG1655/Escherichia_coli_K_12_MG1655/NCBI/2001-10-15/Sequence/Bowtie2Index/genome"
+chromosome_lengths: "/gpfs/data/fisherlab/genomes/hg38/STAR_51_2.7.7a/chrNameLength.txt"
